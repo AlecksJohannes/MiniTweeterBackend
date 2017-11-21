@@ -1,7 +1,6 @@
 class TweetsController < ApplicationController
   def index
-    @tweets = Tweet.where(user_id: params[:id])
-    puts params
+    @tweets = User.find(params[:id]).tweets.includes(:likes).to_json(include: :likes)
     render json: @tweets
   end
 
