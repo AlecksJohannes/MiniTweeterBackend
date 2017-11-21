@@ -1,10 +1,16 @@
 class TweetsController < ApplicationController
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.where(user_id: params[:id])
+    puts params
     render json: @tweets
   end
 
   def create
-    puts params
+    @tweet = Tweet.create(tweet_params)
+    render json: {status: true}
+  end
+
+  def tweet_params
+    params.permit(:description, :user_id)
   end
 end
